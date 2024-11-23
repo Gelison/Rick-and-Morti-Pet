@@ -1,0 +1,13 @@
+export const ADMIN_ROUTE = '/admin';
+export const LOGIN_ROUTE = '/login';
+export const REGISTRATION_ROUTE = '/registration';
+export const RESETPASSWORD_ROUTE = '/resetpassword';
+export const MAIN_ROUTE = '/';
+export const FOLLOW_ROUTE = '/follow';
+export const SETTINGS_ROUTE = '/settings';
+export const CHARACTERS_ROUTE = '/characters';
+export const CHARACTER_ROUTE = '/character';
+export const EPISODES_ROUTE = '/episodes';
+export const EPISODE_ROUTE = '/episode';
+export const LOCATIONS_ROUTE = '/location';
+export const LOCATION_ROUTE = '/locations';
