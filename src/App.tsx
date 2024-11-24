@@ -1,10 +1,11 @@
 import './App.css';
 import { createContext } from 'react';
-import UserStore from './store/UserStore';
-import ItemStore from './store/ItemStore';
 import { BrowserRouter } from 'react-router';
 
 import AppRouter from './components/AppRouter';
+import CharacterStore from './store/CharacterStore';
+import EpisodeStore from './store/EpisodeStore';
+import LocationStore from './store/LocationStore';
 
 export const Context = createContext<any | null>(null);
 
@@ -12,8 +13,9 @@ function App() {
   return (
     <Context.Provider
       value={{
-        user: new UserStore(),
-        film: new ItemStore(),
+        character: new CharacterStore(),
+        episode: new EpisodeStore(),
+        location: new LocationStore(),
       }}
     >
       <BrowserRouter>

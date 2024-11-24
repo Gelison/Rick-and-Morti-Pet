@@ -1,9 +1,9 @@
 import { Link } from 'react-router';
 
-export const CaracterList = () => {
+export const SingleCharacter = () => {
   return (
     <div className=''>
-      CaracterList <Link to='/'>Home</Link>
+      SingleCaracter <Link to='/'>Home</Link>
     </div>
   );
 };

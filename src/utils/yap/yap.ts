@@ -1,5 +1,5 @@
 import * as yup from 'yup';
-import { AppErrors } from '../errors';
+import { AppErrors } from './errors';
 
 export const LoginSchema = yup.object().shape({
   email: yup

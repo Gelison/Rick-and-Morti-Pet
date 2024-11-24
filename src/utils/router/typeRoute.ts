@@ -1,7 +1,7 @@
 import { Admin } from '../../pages/Admin';
 import { Auth } from '../../pages/Auth';
-import { CaracterList } from '../../pages/Character/CaracterList';
-import { SingleCaracter } from '../../pages/Character/SingleCaracter';
+import { CharacterList } from '../../pages/Character/CharacterList';
+import { SingleCharacter } from '../../pages/Character/SingleCharacter';
 import { EpisodeList } from '../../pages/Episode/EpisodeList';
 import { SingleEpisode } from '../../pages/Episode/SingleEpisode';
 import { Follow } from '../../pages/Follow';
@@ -62,12 +62,12 @@ export const publicRoutes = [
 
   {
     path: CHARACTERS_ROUTE,
-    Component: CaracterList,
+    Component: CharacterList,
   },
 
   {
     path: CHARACTER_ROUTE + '/:id',
-    Component: SingleCaracter,
+    Component: SingleCharacter,
   },
 
   {
