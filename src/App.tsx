@@ -1,27 +1,35 @@
 import './App.css';
-import { createContext } from 'react';
-import { BrowserRouter } from 'react-router';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import { Layout } from './components/Layout';
 
-import AppRouter from './components/AppRouter';
-import CharacterStore from './store/CharacterStore';
-import EpisodeStore from './store/EpisodeStore';
-import LocationStore from './store/LocationStore';
+import { Home } from './pages/Home';
+import { Settings } from './pages/Settings';
+// import { Favourites } from './pages/Favorites';
+import { SingleCharacter } from './pages/SingleCharacter';
+import { ResetPassword } from './pages/auth/ResetPasswordPage';
 
-export const Context = createContext<any | null>(null);
+import { NotFoundPage } from './pages/NotFoundPage';
+
+import { SigninForm } from './pages/auth/SingIn';
+import { SignupForm } from './pages/auth/SingUp';
 
 function App() {
   return (
-    <Context.Provider
-      value={{
-        character: new CharacterStore(),
-        episode: new EpisodeStore(),
-        location: new LocationStore(),
-      }}
-    >
-      <BrowserRouter>
-        <AppRouter />
-      </BrowserRouter>
-    </Context.Provider>
+    <BrowserRouter>
+      <Routes>
+        <Route path='/' element={<Layout />}>
+          <Route path='settings'>
+            <Route index element={<Settings />} />
+          </Route>
+          <Route index element={<Home />} />
+          <Route path='character/:id' element={<SingleCharacter />} />
+        </Route>
+        <Route path='signin' element={<SigninForm />} />
+        <Route path='signup' element={<SignupForm />} />
+        <Route path='/resetpassword' element={<ResetPassword />} />
+        <Route path='*' element={<NotFoundPage />} />
+      </Routes>
+    </BrowserRouter>
   );
 }
 
