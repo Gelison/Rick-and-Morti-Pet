@@ -1,7 +1,5 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
-import { SearchIcon } from '../assets/index';
-import { CharacterItem } from './CharacterItem';
 import { Character } from '../API/types';
 import { useDebounce } from '../uilse/hooks/useDebounce';
 import { CharacterSearchItem } from './CharacterSearchItem';
@@ -10,7 +8,7 @@ export const Search = () => {
   const [characters, setCharacters] = useState<Character[]>([]);
   const [inputValue, setInputValue] = useState<string>('');
   const debounceValue = useDebounce(inputValue, 1000);
-  const [isSearchVisible, setIsSearchVisible] = useState<boolean>(true);
+  const [isSearchVisible, setIsSearchVisible] = useState<boolean>(false);
 
   const fetchCharactersByName = async (name: string) => {
     try {
@@ -44,7 +42,7 @@ export const Search = () => {
   };
 
   return (
-    <div className='w-3/4'>
+    <div className='w-3/4 '>
       <form className='relative' onClick={() => setIsSearchVisible(false)}>
         <div className='flex justify-center h-10'>
           <input
@@ -55,12 +53,6 @@ export const Search = () => {
             autoComplete='off'
             onChange={handleInputChange}
             onClick={() => setIsSearchVisible(false)}
-          />
-          <img
-            src={SearchIcon}
-            alt='Search Icon'
-            className='h-6 w-6 cursor-pointer mt-2 -ml-8'
-            onClick={handleHideSearch}
           />
         </div>
         {isSearchVisible && (

@@ -2,7 +2,7 @@ type ModeButton = {
   onClick: (event: React.MouseEvent<HTMLInputElement, MouseEvent>) => void;
 };
 
-export const Switch = ({ onClick }: ModeButton) => {
+export const Toggle = ({ onClick }: ModeButton) => {
   return (
     <label className='relative inline-flex items-center cursor-pointer'>
       <input type='checkbox' value='' className='sr-only peer' />

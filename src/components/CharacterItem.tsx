@@ -1,4 +1,4 @@
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router';
 import { CharacterItemProps } from '../API/types';
 
 export const CharacterItem: React.FC<CharacterItemProps> = ({ character }) => {
@@ -6,16 +6,21 @@ export const CharacterItem: React.FC<CharacterItemProps> = ({ character }) => {
 
   return (
     <div
-      className='mx-10 border-[1px] border-white rounded-md mb-4 cursor-pointer'
+      className='text-gray-300 hover:text-primary2 border border-white rounded-md cursor-pointer overflow-hidden transition-transform transform hover:scale-105 flex flex-col'
       onClick={() => navigate(`/character/${character.id}`)}
     >
-      <img className='rounded-md' src={character.image} alt={character.name} />
-      <div className='ml-1 hover:text-primary'>
-        <h2>Name: {character.name}</h2>
-        <p>
-          Status: {character.status} - Species: {character.species}
-        </p>
-        <p>Gender: {character.gender}</p>
+      <img
+        className='w-full h-48 object-cover'
+        src={character.image}
+        alt={character.name}
+      />
+      <div className='p-4 flex flex-col justify-between flex-grow'>
+        <h2 className='text-lg font-bold mb-2'>Name: {character.name}</h2>
+        <div className='text-sm'>
+          <p>Status: {character.status}</p>
+          <p>Species: {character.species}</p>
+          <p>Gender: {character.gender}</p>
+        </div>
       </div>
     </div>
   );

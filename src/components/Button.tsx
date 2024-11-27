@@ -1,21 +1,23 @@
-import { string } from 'yup';
+import React from 'react';
 
-type Button = {
-  type: string;
-  text: string;
-  disabled?: boolean;
+interface ButtonProps {
+  isDisabled: boolean;
   onClick: () => void;
-};
+  label: string;
+}
 
-export const Button = ({ text, disabled, onClick }: Button) => {
+export const Button: React.FC<ButtonProps> = ({
+  isDisabled,
+  label,
+  onClick,
+}) => {
   return (
     <button
-      className=' w-64 h-14 text-ls rounded-lg text-white
-       bg-primary active:bg-primary2 disabled:bg-secondary '
-      disabled={disabled}
+      className='w-full sm:w-52 h-12 text-lg rounded-lg text-white bg-primary active:bg-primary2 disabled:bg-secondary mb-4 sm:mb-0 px-4 py-2 transition-all duration-300'
+      disabled={isDisabled}
       onClick={onClick}
     >
-      {text}
+      {label}
     </button>
   );
 };

@@ -1,67 +1,86 @@
-import { useState, useEffect } from 'react';
+import { useEffect } from 'react';
+import { observer } from 'mobx-react-lite';
 import { getCharacter } from '../API/getCharacter';
-import { ShowMoreButton } from '../components/ShowMoreButton';
 import { CharacterItem } from '../components/CharacterItem';
+import Filter from '../components/Filter/Filter';
+import PageSwitcher from '../components/PageSwitcher'; // Импортируем компонент PageSwitcher
+import CharacterStore from '../stores/CharacterStore';
+import { Search } from '../components/Search';
 
-interface Character {
-  id: number;
-  name: string;
-  status: string;
-  species: string;
-  gender: string;
-  image: string;
-}
-
-export const Home = () => {
-  const [characters, setCharacters] = useState<Character[]>([]);
-  const [loading, setLoading] = useState(true);
-  const [page, setPage] = useState(1);
-
-  const onClick = () => {
-    setPage((prev) => prev + 1);
-  };
-
-  const fetchData = async () => {
-    setLoading(true);
-    try {
-      const response = await getCharacter(page);
-      if (response) {
-        setCharacters((prev) => [...prev, ...response.results]);
+const Home: React.FC = observer(() => {
+  useEffect(() => {
+    const fetchData = async () => {
+      CharacterStore.setLoading(true);
+      try {
+        console.log('Fetching characters');
+        const response = await getCharacter(
+          CharacterStore.page,
+          CharacterStore.status,
+          CharacterStore.gender,
+          CharacterStore.species
+        );
+        if (response) {
+          CharacterStore.setCharacters(response.results);
+          CharacterStore.updateInfo(response.info); // Обновляем информацию о страницах
+        }
+      } catch (error) {
+        console.error('Ошибка при выполнении запроса:', error);
       }
-    } catch (error) {
-      console.error('Ошибка при выполнении запроса:', error);
-    }
-    setLoading(false);
-  };
+      CharacterStore.setLoading(false);
+    };
 
-  useEffect(() => {
     fetchData();
-  }, []);
-
-  useEffect(() => {
-    if (page > 1) {
-      fetchData();
-    }
-  }, [page]);
+  }, [
+    CharacterStore.page,
+    CharacterStore.status,
+    CharacterStore.gender,
+    CharacterStore.species,
+  ]);
 
   return (
-    <div>
-      <div className='flex flex-wrap -mt-64 pl-80'>
-        {characters.length > 0 ? (
-          characters.map((character) => (
-            <CharacterItem key={character.id} character={character} />
-          ))
-        ) : (
-          <div>Персонажи не найдены!</div>
-        )}
+    <div className='container mx-auto px-4 py-8'>
+      <h1 className='text-center mb-8 text-3xl text-primary font-bold'>
+        Rick and Morty Characters
+      </h1>
+      <div className='flex justify-center mb-8'>
+        <Search />
       </div>
-      <div className='flex justify-center'>
-        <ShowMoreButton
-          text='Показать больше'
-          onClick={onClick}
-          loading={loading}
-        />
+      <div className='flex flex-col md:flex-row'>
+        <div className='mb-8 md:mb-0 md:mr-8'>
+          <Filter
+            updatePageNumber={CharacterStore.updatePageNumber.bind(
+              CharacterStore
+            )}
+          />
+        </div>
+        <div className='flex-grow'>
+          <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6'>
+            {CharacterStore.characters.length > 0 ? (
+              CharacterStore.characters.map((character, index) => (
+                <CharacterItem
+                  key={`${character.id}-${index}`}
+                  character={character}
+                />
+              ))
+            ) : (
+              <div className='text-center text-gray-500'>
+                Персонажи не найдены!
+              </div>
+            )}
+          </div>
+          <div className='flex justify-center mt-8'>
+            <PageSwitcher
+              pageNumber={CharacterStore.page}
+              totalPages={CharacterStore.info.pages}
+              updatePageNumber={CharacterStore.updatePageNumber.bind(
+                CharacterStore
+              )}
+            />
+          </div>
+        </div>
       </div>
     </div>
   );
-};
+});
+
+export default Home;

@@ -1,79 +1,117 @@
 import { Button } from '../components/Button';
+import { Toggle } from '../components/Toggle';
 
 export const Settings = () => {
-  const hendlePrimariButtonClick = () => {
+  const handlePrimaryButtonClick = () => {
     console.log('clicked');
   };
+
   return (
-    <div className=' -mt-64 pl-80 w-3/4'>
-      <div className=' '>
-        <h3 className=' text-xl my-2 '>Profil</h3>
-        <div className=' bg-dark h-[100px]  rounded-md flex flex-col justify-center'>
-          <div className=' flex justify-around  '>
-            <div className=' text-sm flex flex-col justify-center'>Name</div>
-            <input
-              type='username'
-              className=' bg-graphite w-80 h-10 rounded-md'
-              placeholder='name'
-            />
-            <div className=' text-sm flex flex-col justify-center'>Email</div>
+    <div className='container mx-auto px-4 py-10'>
+      <div className='mb-8'>
+        <h3 className='text-2xl font-bold mb-4'>Profile</h3>
+        <div className='bg-gray-800 p-6 rounded-md shadow-md'>
+          <div className='flex flex-col md:flex-row md:justify-between'>
+            <div className='mb-4 md:mb-0 md:w-1/2'>
+              <label
+                className='block text-sm font-medium text-white mb-2'
+                htmlFor='name'
+              >
+                Name
+              </label>
+              <input
+                id='name'
+                type='text'
+                className='bg-gray-700 border border-gray-600 text-white text-sm rounded-md block w-full p-2.5'
+                placeholder='Name'
+              />
+            </div>
+            <div className='md:w-1/2'>
+              <label
+                className='block text-sm font-medium text-white mb-2'
+                htmlFor='email'
+              >
+                Email
+              </label>
+              <input
+                id='email'
+                type='email'
+                className='bg-gray-700 border border-gray-600 text-white text-sm rounded-md block w-full p-2.5'
+                placeholder='Email'
+              />
+            </div>
+          </div>
+        </div>
+      </div>
 
+      <div className='mb-8'>
+        <h3 className='text-2xl font-bold mb-4'>Password</h3>
+        <div className='bg-gray-800 p-6 rounded-md shadow-md'>
+          <div className='mb-4'>
+            <label
+              className='block text-sm font-medium text-white mb-2'
+              htmlFor='current-password'
+            >
+              Current Password
+            </label>
             <input
-              type='email'
-              className='bg-graphite w-80 mr-5 h-10 rounded-md'
-              placeholder='email'
+              id='current-password'
+              type='password'
+              className='bg-gray-700 border border-gray-600 text-white text-sm rounded-md block w-full p-2.5'
+              placeholder='Current Password'
+            />
+          </div>
+          <div className='mb-4'>
+            <label
+              className='block text-sm font-medium text-white mb-2'
+              htmlFor='new-password'
+            >
+              New Password
+            </label>
+            <input
+              id='new-password'
+              type='password'
+              className='bg-gray-700 border border-gray-600 text-white text-sm rounded-md block w-full p-2.5'
+              placeholder='New Password'
+            />
+          </div>
+          <div>
+            <label
+              className='block text-sm font-medium text-white mb-2'
+              htmlFor='confirm-password'
+            >
+              Confirm New Password
+            </label>
+            <input
+              id='confirm-password'
+              type='password'
+              className='bg-gray-700 border border-gray-600 text-white text-sm rounded-md block w-full p-2.5'
+              placeholder='Confirm New Password'
             />
           </div>
         </div>
       </div>
-      <div>
-        <h3 className=' text-xl my-2 '>Pasword</h3>
-        <div className='bg-dark h-[200px]  rounded-md'>
-          <div>
-            <form action=''>
-              <p className=' text-sm'>Password</p>
-              <input
-                type='password'
-                className=' bg-graphite w-80 h-10 rounded-md'
-              />
-            </form>
-          </div>
 
-          <div>
-            <form action=''>
-              <p className=' text-sm'>New password</p>
-              <input
-                type='password'
-                className=' bg-graphite w-80 h-10 rounded-md'
-              />
-            </form>
-          </div>
-          <div>
-            <form action=''>
-              <p className=' text-sm'>Confirm password</p>
-              <input
-                type='password'
-                className=' bg-graphite w-80 h-10 rounded-md'
-              />
-            </form>
+      <div className='mb-8'>
+        <h3 className='text-2xl font-bold mb-4'>Color Mode</h3>
+        <div className='bg-gray-800 p-6 rounded-md shadow-md'>
+          <div className='flex items-center justify-between'>
+            <div>
+              <p className='text-sm text-white'>Dark Mode</p>
+              <p className='text-xs text-gray-400'>Use dark theme</p>
+            </div>
+            <Toggle onClick={handlePrimaryButtonClick} />
           </div>
         </div>
       </div>
-      <div>
-        <div>
-          <h3 className=' text-xl my-2'>Color mode</h3>
-          <div className='bg-dark h-[60px]  rounded-md'>
-            <p className=' text-sm'>Dark</p>
-            <p className=' text-secondary'>Use dark theme</p>
-          </div>
-        </div>
+
+      <div className='flex justify-center'>
+        <Button
+          label='Save'
+          isDisabled={false}
+          onClick={handlePrimaryButtonClick}
+        />
       </div>
-      <Button
-        type='button'
-        text='Save'
-        disabled={false}
-        onClick={hendlePrimariButtonClick}
-      />
     </div>
   );
 };

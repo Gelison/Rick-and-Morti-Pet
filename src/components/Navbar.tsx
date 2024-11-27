@@ -1,36 +1,75 @@
-import { NavLink } from 'react-router-dom';
-import {
-  HomeIcon,
-  TrendsIcon,
-  FavoritesIcon,
-  SettingsIcon,
-} from '../assets/index';
+import React, { useState } from 'react';
+import { NavLink, useNavigate } from 'react-router';
+import { Modal } from './Modal';
 
 export function NavBar() {
-  return (
-    <>
-      <div className='flex basis-auto text-secondary '>
-        <nav className=' flex-col flex space-y-6 '>
-          <NavLink to='/' className={' hover:text-primary flex'}>
-            <img src={HomeIcon} alt='' className=' w-6 h-6 ' />
-            <h3 className='font-sans text-xl px-5'>Home</h3>
-          </NavLink>
-          <NavLink to='/trends' className={' hover:text-primary flex'}>
-            <img src={TrendsIcon} alt='' className=' w-6 h-6 ' />
-            <h3 className='font-sans text-xl px-5'>Trends</h3>
-          </NavLink>
+  const navigate = useNavigate();
+  const [isModalOpen, setModalOpen] = useState(false);
+  const [pendingPath, setPendingPath] = useState<string | null>(null);
 
-          <NavLink to='/favorites' className={' hover:text-primary flex'}>
-            <img src={FavoritesIcon} alt='' className=' w-6 h-6' />
-            <h3 className='font-sans text-xl px-5'>Favorites</h3>
-          </NavLink>
-          <NavLink to='/settings' className={' hover:text-primary flex'}>
-            <img src={SettingsIcon} alt='' className=' w-6 h-6' />
-            <h3 className='font-sans text-xl px-5'>Settings</h3>
-          </NavLink>
-          <div></div>
-        </nav>
-      </div>
-    </>
+  const handleOpenModal = (path: string) => {
+    setPendingPath(path);
+    setModalOpen(true);
+  };
+
+  const handleCloseModal = () => {
+    setModalOpen(false);
+    setPendingPath(null);
+  };
+
+  const handleConfirm = () => {
+    if (pendingPath) {
+      navigate(pendingPath);
+    }
+    setModalOpen(false);
+    setPendingPath(null);
+  };
+
+  const handleNavLinkClick = (
+    event: React.MouseEvent<HTMLAnchorElement, MouseEvent>,
+    path: string
+  ) => {
+    event.preventDefault();
+    handleOpenModal(path);
+  };
+
+  return (
+    <div className='fixed top-[14] left-0 right-0 w-full bg-purple-950 bg-opacity-90 z-50 shadow-lg'>
+      <nav className='container mx-auto flex flex-col md:flex-row justify-between items-center py-4'>
+        <NavLink
+          to='/'
+          onClick={(event) => handleNavLinkClick(event, '/')}
+          className='hover:text-primary text-gray-100 text-xl font-sans py-2 md:py-0'
+        >
+          Home
+        </NavLink>
+        <NavLink
+          to='/location'
+          onClick={(event) => handleNavLinkClick(event, '/location')}
+          className='hover:text-primary text-gray-100 text-xl font-sans py-2 md:py-0'
+        >
+          Location
+        </NavLink>
+        <NavLink
+          to='/episode'
+          onClick={(event) => handleNavLinkClick(event, '/episode')}
+          className='hover:text-primary text-gray-100 text-xl font-sans py-2 md:py-0'
+        >
+          Episode
+        </NavLink>
+        <NavLink
+          to='/follow'
+          onClick={(event) => handleNavLinkClick(event, '/follow')}
+          className='hover:text-primary text-gray-100 text-xl font-sans py-2 md:py-0'
+        >
+          Follow
+        </NavLink>
+      </nav>
+      <Modal
+        isOpen={isModalOpen}
+        onClose={handleCloseModal}
+        onConfirm={handleConfirm}
+      />
+    </div>
   );
 }
