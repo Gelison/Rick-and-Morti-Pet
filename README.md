@@ -1,27 +1,54 @@
-# React + TypeScript + Vite
+# Rick and Morty · каталог персонажей
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Frontend-проект на React и TypeScript для просмотра персонажей вселенной Rick and Morty с данными открытого Rick and Morty API.
 
-Currently, two official plugins are available:
+## Что есть в проекте
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- Каталог персонажей с постраничной навигацией.
+- Фильтры по статусу, полу и виду персонажа.
+- Компоненты поиска и страницы отдельного персонажа.
+- Страницы эпизодов и локаций.
+- Управление состоянием каталога через MobX.
 
-## Expanding the ESLint configuration
+## Стек
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+React 18 · TypeScript · MobX · Vite · Tailwind CSS · Axios.
 
-- Configure the top-level `parserOptions` property like this:
+## Локальный запуск
 
-```js
-   parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-   },
+Потребуются Git, Node.js и npm.
+
+```sh
+git clone https://github.com/Gelison/Rick-and-Morti-Pet.git
+cd Rick-and-Morti-Pet
+npm ci
+npm run dev
 ```
 
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+Откройте адрес, который Vite выведет в терминале. Для загрузки данных требуется интернет; ключ API не используется.
+
+## Команды
+
+| Команда | Назначение |
+| --- | --- |
+| `npm run dev` | Сервер разработки |
+| `npm run build` | Проверка TypeScript и сборка |
+| `npm run preview` | Просмотр собранного приложения |
+| `npm run lint` | Проверка ESLint |
+
+## Структура
+
+```text
+src/
+├── API/          # Запросы персонажей, эпизодов и локаций
+├── components/   # Карточки, поиск, фильтры и навигация
+├── pages/        # Страницы приложения
+├── stores/       # Состояние MobX
+└── uilse/        # Хуки и вспомогательные модули
+```
+
+## Статус
+
+Проект в разработке. Раздел избранного (`Follow.tsx`, `FollowStore.ts`) пока содержит заготовки.
+
+Источник данных: [Rick and Morty API](https://rickandmortyapi.com/).
